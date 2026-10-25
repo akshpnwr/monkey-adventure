@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+html{scroll-behavior:smooth}
+body{margin:0;background:#F3EDE1;color:#12261E;font-family:'Bricolage Grotesque',sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#12261E;text-decoration:none}
+a:hover{color:#C2461A}
+input,select,textarea,button{font-family:inherit}
+html{scrollbar-width:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{display:none}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;overflow-x:hidden;position:relative">
+
+<svg aria-hidden="true" width="{{ ropeW }}" height="{{ ropeH }}" fill="none" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;top:0;left:0;z-index:15;pointer-events:none;overflow:visible">
+  <defs>
+    <filter id="ma-blur" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="3"></feGaussianBlur></filter>
+    <filter id="ma-shadow" x="-60%" y="-60%" width="220%" height="220%"><feDropShadow dx="4" dy="6" stdDeviation="2.5" flood-color="#12261E" flood-opacity="0.35"></feDropShadow></filter>
+    <linearGradient id="ma-shirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2E8579"></stop><stop offset="0.45" stop-color="#1F5C55"></stop><stop offset="1" stop-color="#103631"></stop></linearGradient>
+    <linearGradient id="ma-pack" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E0643A"></stop><stop offset="1" stop-color="#8E3210"></stop></linearGradient>
+    <radialGradient id="ma-helmet" cx="0.35" cy="0.3" r="0.8"><stop offset="0" stop-color="#FFE3A3"></stop><stop offset="0.45" stop-color="#F2A120"></stop><stop offset="1" stop-color="#A8650F"></stop></radialGradient>
+    <radialGradient id="ma-skin" cx="0.35" cy="0.35" r="0.75"><stop offset="0" stop-color="#F0C49A"></stop><stop offset="1" stop-color="#B9814F"></stop></radialGradient>
+  </defs>
+  <path d="{{ ropeD }}" stroke="#12261E" stroke-opacity="0.28" stroke-width="10" transform="translate(4 7)" filter="url(#ma-blur)"></path>
+  <path d="{{ ropeD }}" stroke="#7A4A10" stroke-width="9"></path>
+  <path d="{{ ropeD }}" stroke="#D88E1C" stroke-width="7"></path>
+  <path d="{{ ropeD }}" stroke="#F2A120" stroke-width="3.5" transform="translate(-0.8 -0.8)"></path>
+  <path d="{{ ropeD }}" stroke="#7A4A10" stroke-opacity="0.75" stroke-width="7" stroke-dasharray="1.6 5.4"></path>
+  <path d="{{ ropeD }}" stroke="#FFE3A3" stroke-opacity="0.7" stroke-width="1.2" transform="translate(-1.6 -1.6)" stroke-dasharray="3 4"></path>
+  <circle cx="{{ startX }}" cy="{{ startY }}" r="9" fill="#F3EDE1" stroke="#12261E" stroke-width="4.5" filter="url(#ma-shadow)"></circle>
+  <circle cx="{{ endX }}" cy="{{ endY }}" r="7" fill="#7A4A10" stroke="#F2A120" stroke-width="2.5"></circle>
+  <g transform="{{ climberT }}" filter="url(#ma-shadow)">
+    <sc-if value="{{ poseA }}" hint-placeholder-val="{{ true }}">
+      <g stroke="#0A1712">
+        <path d="M16 22 L11 28 L19 31" stroke-width="3.2"></path>
+        <path d="M18 40 L14 50 L19 60" stroke-width="3.8"></path>
+        <circle cx="19" cy="31" r="2.2" fill="#9E6B3E" stroke="none"></circle>
+      </g>
+    </sc-if>
+    <sc-if value="{{ poseB }}" hint-placeholder-val="{{ false }}">
+      <g stroke="#0A1712">
+        <path d="M24 22 L29 28 L21 31" stroke-width="3.2"></path>
+        <path d="M22 40 L26 50 L21 60" stroke-width="3.8"></path>
+        <circle cx="21" cy="31" r="2.2" fill="#9E6B3E" stroke="none"></circle>
+      </g>
+    </sc-if>
+    <rect x="14" y="19" width="12" height="22" rx="5.5" fill="url(#ma-shirt)"></rect>
+    <rect x="14.5" y="22" width="11" height="12" rx="3" fill="url(#ma-pack)"></rect>
+    <path d="M15.5 25 L24.5 25" stroke="#F2A120" stroke-width="1"></path>
+    <path d="M14.5 38.5 L25.5 38.5" stroke="#C2461A" stroke-width="3"></path>
+    <circle cx="20" cy="15" r="5" fill="url(#ma-skin)"></circle>
+    <path d="M14.4 15.4 A5.6 5.8 0 0 1 25.6 15.4 Z" fill="url(#ma-helmet)" stroke="#12261E" stroke-width="1"></path>
+    <ellipse cx="18" cy="11.6" rx="1.8" ry="1" fill="#FFF6DD" fill-opacity="0.8"></ellipse>
+    <sc-if value="{{ poseA }}" hint-placeholder-val="{{ true }}">
+      <g>
+        <path d="M24 22 L29 13 L21 5" stroke="#12261E" stroke-width="3.8"></path>
+        <path d="M24 22 L29 13" stroke="#3A5A4E" stroke-width="1.1" transform="translate(-0.6 0)"></path>
+        <path d="M22 40 L29 46 L21 52" stroke="#12261E" stroke-width="4.4"></path>
+        <path d="M22.5 40.5 L28.5 45.5" stroke="#3A5A4E" stroke-width="1.2"></path>
+        <circle cx="21" cy="5" r="2.6" fill="url(#ma-skin)"></circle>
+      </g>
+    </sc-if>
+    <sc-if value="{{ poseB }}" hint-placeholder-val="{{ false }}">
+      <g>
+        <path d="M16 22 L11 13 L19 5" stroke="#12261E" stroke-width="3.8"></path>
+        <path d="M16 22 L11 13" stroke="#3A5A4E" stroke-width="1.1" transform="translate(0.6 0)"></path>
+        <path d="M18 40 L11 46 L19 52" stroke="#12261E" stroke-width="4.4"></path>
+        <path d="M17.5 40.5 L11.5 45.5" stroke="#3A5A4E" stroke-width="1.2"></path>
+        <circle cx="19" cy="5" r="2.6" fill="url(#ma-skin)"></circle>
+      </g>
+    </sc-if>
+  </g>
+</svg>
+
+<header style="position:sticky;top:0;z-index:20;background:rgba(243,237,225,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(18,38,30,0.12)">
+  <nav style="max-width:1320px;margin:0 auto;padding:14px clamp(16px,4vw,40px);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+    <a href="#top" style="display:flex;align-items:center;gap:10px">
+      <span style="width:38px;height:38px;border-radius:50%;background:#12261E;color:#F2A120;display:grid;place-items:center;font-weight:800;font-size:15px;letter-spacing:-0.02em">MA</span>
+      <span style="font-weight:800;font-size:19px;letter-spacing:-0.03em;line-height:1">Monkey<br><span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:18px">Adventure</span></span>
+    </a>
+    <div style="display:flex;gap:clamp(14px,2.4vw,30px);font-size:15px;font-weight:600;flex-wrap:wrap">
+      <a href="#activities">Activities</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">Why us</a>
+      <a href="#book">Contact</a>
+    </div>
+    <a href="#book" style="background:#12261E;color:#F3EDE1;padding:11px 20px;border-radius:999px;font-weight:600;font-size:15px" style-hover="background:#C2461A;color:#F3EDE1">Book a trip →</a>
+  </nav>
+</header>
+
+<section id="top" data-screen-label="Hero" style="max-width:1320px;margin:0 auto;padding:clamp(32px,5vw,64px) clamp(16px,4vw,40px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:clamp(24px,4vw,56px);align-items:end">
+    <div style="animation:rise .8s ease both">
+      <div style="display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#1F5C55">
+        <span style="width:28px;height:2px;background:#C2461A"></span>Rishikesh · Uttarakhand
+      </div>
+      <h1 style="font-size:clamp(56px,9vw,132px);line-height:0.88;letter-spacing:-0.05em;font-weight:800;margin:20px 0 0">
+        Go wild<br>by the <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:-0.02em;color:#1F5C55">Ganga.</span>
+      </h1>
+      <p style="font-size:clamp(18px,1.6vw,21px);line-height:1.5;max-width:30ch;margin:28px 0 0;text-wrap:pretty;color:#2C4038">
+        Whitewater rafting, Himalayan treks and riverside camps — planned by locals who grew up on these rapids.
+      </p>
+      <div style="display:flex;gap:12px;margin-top:32px;flex-wrap:wrap">
+        <a href="#packages" style="background:#F2A120;color:#12261E;padding:16px 26px;border-radius:999px;font-weight:800;font-size:16px" style-hover="background:#12261E;color:#F2A120">Explore packages</a>
+        <a href="#book" style="border:1.5px solid #12261E;padding:15px 26px;border-radius:999px;font-weight:600;font-size:16px;white-space:nowrap" style-hover="background:#12261E;color:#F3EDE1">WhatsApp us</a>
+      </div>
+    </div>
+    <div style="position:relative;animation:rise .8s .15s ease both">
+      <div style="height:clamp(360px,48vw,600px);border-radius:240px 240px 24px 24px;overflow:hidden">
+        <image-slot id="hero-rafting" shape="rect" placeholder="Hero: raft hitting a rapid on the Ganga"></image-slot>
+      </div>
+      <div style="position:absolute;left:-14px;bottom:28px;background:#12261E;color:#F3EDE1;padding:16px 20px;border-radius:18px;max-width:230px;pointer-events:none">
+        <div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:15px;color:#F2A120">Season open</div>
+        <div style="font-weight:600;font-size:17px;line-height:1.25;margin-top:4px">Rafting runs Sept → June</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="margin-top:clamp(48px,6vw,80px);background:#12261E;color:#F3EDE1;padding:18px 0;overflow:hidden;transform:rotate(-1.2deg);width:104%;margin-left:-2%">
+  <div style="display:flex;gap:40px;width:max-content;animation:marquee 32s linear infinite;font-size:clamp(22px,2.6vw,34px);font-weight:800;letter-spacing:-0.02em;white-space:nowrap">
+    <span>River Rafting</span><span style="color:#F2A120">✦</span><span>Bungee Jumping</span><span style="color:#F2A120">✦</span><span>Camping</span><span style="color:#F2A120">✦</span><span>Himalayan Treks</span><span style="color:#F2A120">✦</span><span>Ganga Aarti</span><span style="color:#F2A120">✦</span><span>Char Dham Yatra</span><span style="color:#F2A120">✦</span>
+    <span>River Rafting</span><span style="color:#F2A120">✦</span><span>Bungee Jumping</span><span style="color:#F2A120">✦</span><span>Camping</span><span style="color:#F2A120">✦</span><span>Himalayan Treks</span><span style="color:#F2A120">✦</span><span>Ganga Aarti</span><span style="color:#F2A120">✦</span><span>Char Dham Yatra</span><span style="color:#F2A120">✦</span>
+  </div>
+</div>
+
+<section id="activities" data-screen-label="Activities" style="max-width:1320px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(16px,4vw,40px) 0">
+  <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+    <h2 style="font-size:clamp(40px,5.5vw,76px);line-height:0.95;letter-spacing:-0.045em;font-weight:800;margin:0;max-width:14ch">Pick your <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400">adrenaline.</span></h2>
+    <p style="font-size:18px;line-height:1.5;max-width:36ch;margin:0;color:#2C4038;text-wrap:pretty">Every activity runs with certified guides, safety kit and pickup from your hotel in Rishikesh.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:20px;margin-top:48px">
+    <sc-for list="{{ activities }}" as="a" hint-placeholder-count="4">
+      <article style="display:flex;flex-direction:column;gap:16px">
+        <div style="height:340px;border-radius:20px;overflow:hidden;position:relative">
+          <image-slot id="{{ a.slot }}" shape="rect" placeholder="{{ a.ph }}"></image-slot>
+          <span style="position:absolute;top:14px;right:14px;background:#F3EDE1;padding:6px 12px;border-radius:999px;font-size:13px;font-weight:600;pointer-events:none">{{ a.tag }}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px">
+          <h3 style="font-size:26px;letter-spacing:-0.03em;font-weight:800;margin:0">{{ a.name }}</h3>
+          <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:20px;color:#1F5C55;white-space:nowrap">{{ a.from }}</span>
+        </div>
+        <p style="font-size:16px;line-height:1.5;margin:-6px 0 0;color:#2C4038;text-wrap:pretty">{{ a.desc }}</p>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section id="packages" data-screen-label="Packages" style="max-width:1320px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(16px,4vw,40px) 0">
+  <div style="background:#1F5C55;color:#F3EDE1;border-radius:32px;padding:clamp(28px,5vw,64px)">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;flex-wrap:wrap">
+      <h2 style="font-size:clamp(40px,5.5vw,76px);line-height:0.95;letter-spacing:-0.045em;font-weight:800;margin:0">Tour <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#F2A120">packages</span></h2>
+      <div style="display:flex;gap:6px;background:rgba(0,0,0,0.2);padding:5px;border-radius:999px;flex-wrap:wrap">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.onClick }}" style="{{ t.style }}">{{ t.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:20px;margin-top:40px">
+      <sc-for list="{{ packages }}" as="p" hint-placeholder-count="3">
+        <article style="background:#F3EDE1;color:#12261E;border-radius:22px;padding:12px;display:flex;flex-direction:column">
+          <div style="height:210px;border-radius:14px;overflow:hidden">
+            <image-slot id="{{ p.slot }}" shape="rect" placeholder="{{ p.ph }}"></image-slot>
+          </div>
+          <div style="padding:18px 10px 10px;display:flex;flex-direction:column;gap:12px;flex:1">
+            <div style="display:flex;gap:8px;font-size:13px;font-weight:600;color:#1F5C55;text-transform:uppercase;letter-spacing:0.06em">
+              <span>{{ p.days }}</span><span>·</span><span>{{ p.cat }}</span>
+            </div>
+            <h3 style="font-size:26px;line-height:1.05;letter-spacing:-0.03em;font-weight:800;margin:0">{{ p.name }}</h3>
+            <p style="font-size:15px;line-height:1.5;margin:0;color:#2C4038;text-wrap:pretty">{{ p.inc }}</p>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px dashed rgba(18,38,30,0.25)">
+              <div>
+                <sc-if value="{{ showPrices }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-size:24px;font-weight:800;letter-spacing:-0.02em">{{ p.price }}<span style="font-size:14px;font-weight:400;color:#2C4038"> / person</span></div>
+                </sc-if>
+                <sc-if value="{{ hidePrices }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-size:16px;font-weight:600">Price on request</div>
+                </sc-if>
+              </div>
+              <button onClick="{{ p.pick }}" style="background:#12261E;color:#F3EDE1;border:0;padding:12px 18px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer" style-hover="background:#C2461A">Enquire</button>
+            </div>
+          </div>
+        </article>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section id="about" data-screen-label="Why us" style="max-width:1320px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(16px,4vw,40px) 0">
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:clamp(32px,5vw,72px);align-items:center">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="height:clamp(260px,30vw,420px);border-radius:20px;overflow:hidden"><image-slot id="about-guides" shape="rect" placeholder="Your guide team"></image-slot></div>
+      <div style="height:clamp(260px,30vw,420px);border-radius:20px;overflow:hidden;margin-top:48px"><image-slot id="about-camp" shape="rect" placeholder="Campfire by the river"></image-slot></div>
+    </div>
+    <div>
+      <h2 style="font-size:clamp(40px,5vw,68px);line-height:0.95;letter-spacing:-0.045em;font-weight:800;margin:0">Locals first, <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#1F5C55">tourists never.</span></h2>
+      <p style="font-size:18px;line-height:1.55;margin:24px 0 0;color:#2C4038;max-width:44ch;text-wrap:pretty">We're a small crew from Tapovan who treat every guest like a friend visiting home. No call centres, no surprise add-ons.</p>
+      <div style="display:grid;gap:0;margin-top:32px;border-top:1px solid rgba(18,38,30,0.18)">
+        <sc-for list="{{ reasons }}" as="r" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:48px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid rgba(18,38,30,0.18)">
+            <span style="font-family:'Instrument Serif',serif;font-style:italic;font-size:28px;color:#C2461A;line-height:1">{{ r.n }}</span>
+            <div>
+              <div style="font-weight:800;font-size:20px;letter-spacing:-0.02em">{{ r.t }}</div>
+              <div style="font-size:16px;line-height:1.5;color:#2C4038;margin-top:4px">{{ r.d }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section data-screen-label="Testimonial" style="max-width:1100px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(16px,4vw,40px) 0;text-align:center">
+  <div style="font-family:'Instrument Serif',serif;font-size:clamp(30px,3.8vw,52px);line-height:1.15;letter-spacing:-0.01em;text-wrap:balance">“The 26 km run from Shivpuri was the best day of our India trip — and the camp dinner after was even better.”</div>
+  <div style="margin-top:24px;font-weight:600;font-size:16px;color:#1F5C55">Guest review · Rafting + Camping package</div>
+</section>
+
+<section id="book" data-screen-label="Booking" style="max-width:1320px;margin:0 auto;padding:clamp(72px,9vw,128px) clamp(16px,4vw,40px)">
+  <div style="background:#12261E;color:#F3EDE1;border-radius:32px;padding:clamp(28px,5vw,64px);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(32px,5vw,64px)">
+    <div style="display:flex;flex-direction:column;gap:24px">
+      <h2 style="font-size:clamp(40px,5.5vw,76px);line-height:0.95;letter-spacing:-0.045em;font-weight:800;margin:0">Plan your <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;color:#F2A120">trip.</span></h2>
+      <p style="font-size:18px;line-height:1.55;margin:0;max-width:36ch;color:#D8D2C4">Tell us your dates and group size. We reply on WhatsApp within a few hours.</p>
+      <div style="display:grid;gap:14px;margin-top:auto;font-size:16px">
+        <div><div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#F2A120;font-weight:600">Phone / WhatsApp</div><div style="font-size:20px;font-weight:600;margin-top:4px">+91 98XXX XXXXX</div></div>
+        <div><div style="font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:#F2A120;font-weight:600">Base camp</div><div style="font-size:20px;font-weight:600;margin-top:4px">Tapovan, Rishikesh, Uttarakhand</div></div>
+      </div>
+    </div>
+    <div>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display:grid;gap:14px">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px">
+            <label style="display:grid;gap:6px;font-size:14px;font-weight:600">Name<input value="{{ form.name }}" onChange="{{ setName }}" placeholder="Your name" style="background:#F3EDE1;border:0;border-radius:12px;padding:14px;font-size:16px;color:#12261E"></label>
+            <label style="display:grid;gap:6px;font-size:14px;font-weight:600">Phone<input value="{{ form.phone }}" onChange="{{ setPhone }}" placeholder="+91" style="background:#F3EDE1;border:0;border-radius:12px;padding:14px;font-size:16px;color:#12261E"></label>
+          </div>
+          <label style="display:grid;gap:6px;font-size:14px;font-weight:600">Package
+            <select value="{{ form.pkg }}" onChange="{{ setPkg }}" style="background:#F3EDE1;border:0;border-radius:12px;padding:14px;font-size:16px;color:#12261E">
+              <sc-for list="{{ pkgOptions }}" as="o" hint-placeholder-count="3"><option value="{{ o }}">{{ o }}</option></sc-for>
+            </select>
+          </label>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px">
+            <label style="display:grid;gap:6px;font-size:14px;font-weight:600">Travel date<input type="date" value="{{ form.date }}" onChange="{{ setDate }}" style="background:#F3EDE1;border:0;border-radius:12px;padding:14px;font-size:16px;color:#12261E"></label>
+            <label style="display:grid;gap:6px;font-size:14px;font-weight:600">Travellers<input type="number" min="1" value="{{ form.pax }}" onChange="{{ setPax }}" style="background:#F3EDE1;border:0;border-radius:12px;padding:14px;font-size:16px;color:#12261E"></label>
+          </div>
+          <button ref="{{ sendRef }}" onClick="{{ submit }}" style="margin-top:8px;background:#F2A120;color:#12261E;border:0;padding:18px;border-radius:999px;font-weight:800;font-size:17px;cursor:pointer" style-hover="background:#F3EDE1">Send enquiry →</button>
+          <sc-if value="{{ error }}" hint-placeholder-val="{{ false }}"><div style="color:#F2A120;font-size:15px">Please add your name and phone number.</div></sc-if>
+        </div>
+      </sc-if>
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="background:#1F5C55;border-radius:20px;padding:32px;display:grid;gap:12px">
+          <div style="font-family:'Instrument Serif',serif;font-style:italic;font-size:40px;color:#F2A120;line-height:1">Shukriya, {{ form.name }}!</div>
+          <div style="font-size:18px;line-height:1.5">We've got your enquiry for <strong>{{ form.pkg }}</strong>. Expect a WhatsApp message from our team shortly.</div>
+          <button onClick="{{ reset }}" style="justify-self:start;margin-top:8px;background:transparent;color:#F3EDE1;border:1.5px solid #F3EDE1;padding:10px 18px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer">Send another</button>
+        </div>
+      </sc-if>
+    </div>
+  </div>
+</section>
+
+<footer style="border-top:1px solid rgba(18,38,30,0.15)">
+  <div style="max-width:1320px;margin:0 auto;padding:28px clamp(16px,4vw,40px);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px;color:#2C4038">
+    <span style="font-weight:800;color:#12261E">Monkey Adventure</span>
+    <span>Rafting · Camping · Treks · Tours — Rishikesh</span>
+    <span>© 2026 Monkey Adventure</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showPrices&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Packages&quot;},&quot;tabAccent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#F2A120&quot;,&quot;options&quot;:[&quot;#F2A120&quot;,&quot;#E8643A&quot;,&quot;#9BD3C4&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Packages&quot;}}">
+class Component extends DCLogic {
+  state = { tab: 'All', sent: false, error: false, form: { name: '', phone: '', pkg: 'Rafting + Riverside Camp', date: '', pax: 2 } };
+  activities = [
+    { slot: 'act-rafting', ph: 'Rafting on the Ganga', tag: 'Grade III–IV', name: 'River Rafting', from: 'from ₹600', desc: '16 km, 26 km or 36 km runs from Shivpuri and Marine Drive.' },
+    { slot: 'act-bungee', ph: 'Bungee jump platform', tag: '83 m drop', name: 'Bungee & Swing', from: 'from ₹3,700', desc: 'India\u2019s highest fixed-platform jump at Mohan Chatti, plus giant swing.' },
+    { slot: 'act-camp', ph: 'Tents on a river beach', tag: 'Overnight', name: 'Riverside Camping', from: 'from ₹1,500', desc: 'Beach tents, bonfire, meals and volleyball on the sand.' },
+    { slot: 'act-trek', ph: 'Trekkers on a ridge', tag: 'Easy–Moderate', name: 'Treks & Hikes', from: 'from ₹900', desc: 'Kunjapuri sunrise, Neer Garh waterfall and multi-day Himalayan trails.' }
+  ];
+  allPackages = [
+    { slot: 'pkg-1', ph: 'Camp at dusk', cat: 'Adventure', days: '2D / 1N', name: 'Rafting + Riverside Camp', inc: '16 km rafting, beach camp stay, bonfire, all meals, cliff jumping.', price: '₹2,499' },
+    { slot: 'pkg-2', ph: 'Bungee jumper mid-air', cat: 'Adventure', days: '3D / 2N', name: 'Adrenaline Weekend', inc: '26 km rafting, bungee jump, flying fox, camp stay and transfers.', price: '₹7,999' },
+    { slot: 'pkg-3', ph: 'Ganga Aarti at Triveni Ghat', cat: 'Spiritual', days: '2D / 1N', name: 'Rishikesh Soul Tour', inc: 'Ganga Aarti, Laxman & Ram Jhula, Beatles Ashram, sunrise yoga session.', price: '₹3,299' },
+    { slot: 'pkg-4', ph: 'Kunjapuri temple sunrise', cat: 'Trek', days: '1 Day', name: 'Kunjapuri Sunrise Trek', inc: 'Pre-dawn pickup, guided hike, Himalayan sunrise view, breakfast.', price: '₹1,199' },
+    { slot: 'pkg-5', ph: 'Kedarnath valley', cat: 'Spiritual', days: '10D / 9N', name: 'Char Dham Yatra', inc: 'Yamunotri, Gangotri, Kedarnath, Badrinath — hotels, cab and guide.', price: '₹28,500' },
+    { slot: 'pkg-6', ph: 'Snowy Himalayan trail', cat: 'Trek', days: '6D / 5N', name: 'Kedarkantha Snow Trek', inc: 'Winter summit trek with tents, meals, permits and certified trek leader.', price: '₹9,999' }
+  ];
+  reasons = [
+    { n: '01', t: 'Certified river guides', d: 'Trained rescue kayakers on every rafting trip.' },
+    { n: '02', t: 'One price, all in', d: 'Transfers, gear, meals and permits are always included.' },
+    { n: '03', t: 'Small groups', d: 'More time on the water, less time waiting in line.' }
+  ];
+  componentWillUnmount() {
+    if (!this.onScroll) return;
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.layout);
+    if (this.ro) this.ro.disconnect();
+  }
+  sendRef = el => { if (el && el !== this.sendEl) { this.sendEl = el; setTimeout(() => this.layout && this.layout(), 0); } };
+  setupRope() {
+    const bez = (p0, c1, c2, p1, t) => { const u = 1 - t; return [u*u*u*p0[0] + 3*u*u*t*c1[0] + 3*u*t*t*c2[0] + t*t*t*p1[0], u*u*u*p0[1] + 3*u*u*t*c1[1] + 3*u*t*t*c2[1] + t*t*t*p1[1]]; };
+    this.layout = () => {
+      const de = document.documentElement, W = de.clientWidth, H = de.scrollHeight;
+      const pad = Math.min(40, Math.max(16, W * 0.04)), lo = Math.max(10, (W - Math.min(W, 1320)) / 2 + pad / 2), hi = W - lo, sx = lo, sy = 118;
+      let ex = W / 2, ey = H - 320;
+      if (this.sendEl && this.sendEl.isConnected) { const r = this.sendEl.getBoundingClientRect(); ex = r.left + r.width / 2; ey = r.top + window.scrollY - 4; }
+      const hero = document.getElementById('top');
+      const hb = hero ? hero.getBoundingClientRect().bottom + window.scrollY + 40 : sy + 500;
+      const n = Math.max(2, Math.round((ey - hb) / 820));
+      const pts = [[sx, sy], [lo, hb]];
+      for (let i = 1; i < n; i++) pts.push([i % 2 ? hi : lo, hb + (ey - hb) * i / n]);
+      pts.push([ex, ey]);
+      let d = 'M' + sx.toFixed(1) + ' ' + sy.toFixed(1); const lut = [];
+      for (let i = 0; i < pts.length - 1; i++) {
+        const p0 = pts[i], p1 = pts[i + 1], dy = p1[1] - p0[1];
+        const c1 = [p0[0], p0[1] + dy * 0.55], c2 = [p1[0], p1[1] - dy * 0.55];
+        d += ' C' + [c1, c2, p1].map(q => q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join(' ');
+        for (let k = 0; k <= 80; k++) lut.push(bez(p0, c1, c2, p1, k / 80));
+      }
+      this.lut = lut;
+      this.setState({ ropeW: W, ropeH: H, ropeD: d, startX: sx, startY: sy, endX: ex, endY: ey });
+      this.onScroll();
+    };
+    this.onScroll = () => {
+      const lut = this.lut; if (!lut) return;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      const y0 = lut[0][1], y1 = lut[lut.length - 1][1] - 40, ty = y0 + p * (y1 - y0);
+      let lo = 0, hi = lut.length - 1;
+      while (hi - lo > 1) { const m = (lo + hi) >> 1; if (lut[m][1] < ty) lo = m; else hi = m; }
+      const A = lut[lo], B = lut[hi], f = B[1] > A[1] ? (ty - A[1]) / (B[1] - A[1]) : 0;
+      const x = A[0] + (B[0] - A[0]) * f, y = A[1] + (B[1] - A[1]) * f;
+      const P = lut[Math.max(0, lo - 2)], N = lut[Math.min(lut.length - 1, hi + 2)];
+      const poseA = Math.floor(window.scrollY / 70) % 2 === 0;
+      const deg = Math.atan2(-(N[0] - P[0]), N[1] - P[1]) * 180 / Math.PI + (poseA ? -4 : 4);
+      this.setState({ climberT: `translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg.toFixed(1)}) scale(1.2) translate(-20 -32)`, poseA });
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', this.layout);
+    this.ro = new ResizeObserver(() => this.layout()); this.ro.observe(document.body);
+    setTimeout(this.layout, 0);
+  }
+  setField = k => e => { const v = e.target.value; this.setState(s => ({ form: { ...s.form, [k]: v }, error: false })); };
+  renderVals() {
+    const { tab, form, sent, error } = this.state;
+    const showPrices = this.props.showPrices ?? true;
+    const accent = this.props.tabAccent ?? '#F2A120';
+    const tabs = ['All', 'Adventure', 'Trek', 'Spiritual'].map(label => ({
+      label,
+      onClick: () => this.setState({ tab: label }),
+      style: { border: 0, cursor: 'pointer', padding: '10px 18px', borderRadius: 999, fontSize: 15, fontWeight: 600, background: tab === label ? accent : 'transparent', color: tab === label ? '#12261E' : '#F3EDE1' }
+    }));
+    const packages = this.allPackages.filter(p => tab === 'All' || p.cat === tab).map(p => ({
+      ...p,
+      pick: () => { this.setState(s => ({ form: { ...s.form, pkg: p.name }, sent: false })); const el = document.getElementById('book'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }
+    }));
+    if (!this._rope) { this._rope = true; this.setupRope(); }
+    const poseA = this.state.poseA ?? true;
+    return {
+      poseA, poseB: !poseA, sendRef: this.sendRef,
+      ropeW: this.state.ropeW ?? 0, ropeH: this.state.ropeH ?? 0, ropeD: this.state.ropeD ?? '', climberT: this.state.climberT ?? 'translate(-200 0)',
+      startX: this.state.startX ?? -50, startY: this.state.startY ?? -50, endX: this.state.endX ?? -50, endY: this.state.endY ?? -50,
+      activities: this.activities, tabs, packages, reasons: this.reasons,
+      showPrices, hidePrices: !showPrices,
+      pkgOptions: [...this.allPackages.map(p => p.name), 'Custom trip'],
+      form, sent, notSent: !sent, error,
+      setName: this.setField('name'), setPhone: this.setField('phone'), setPkg: this.setField('pkg'), setDate: this.setField('date'), setPax: this.setField('pax'),
+      submit: () => (form.name.trim() && form.phone.trim()) ? this.setState({ sent: true }) : this.setState({ error: true }),
+      reset: () => this.setState(s => ({ sent: false, form: { ...s.form, name: '', phone: '' } }))
+    };
+  }
+}
+</script>
+</body>
+</html>
